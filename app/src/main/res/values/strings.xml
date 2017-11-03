@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Guedr</string>
+    <string name="app_name">Güedr</string>
     <string name="greeting">Hola Keepcoders!</string>
     <string name="offline_description">Imagen que representa el tiempo sin conexión</string>
     <string name="stone_button">Sistema Piedra</string>
