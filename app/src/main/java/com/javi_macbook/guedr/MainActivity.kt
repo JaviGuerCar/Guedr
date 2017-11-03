@@ -6,11 +6,12 @@ import android.os.PersistableBundle
 import android.util.Log
 import android.widget.Button
 import android.view.View
+import android.widget.ImageView
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
-
     val TAG = MainActivity::class.java.canonicalName
+    var offlineWeatherImage: ImageView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,6 +20,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         // Asigno una referencia al Botón
         findViewById<Button>(R.id.stone_button).setOnClickListener(this)
         findViewById<Button>(R.id.donkey_button).setOnClickListener(this)
+
+        offlineWeatherImage = findViewById(R.id.offline_weather_image)
 
         Log.v(TAG, "He pasado por onCreate")
 
@@ -46,16 +49,24 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 //            }
 //        }
 
-//        when (v?.id){
-//            R.id.stone_button -> Log.v(TAG, "Han pulsado el botón piedra")
-//            R.id.donkey_button -> Log.v(TAG, "Han pulsado el botón burro")
-//        }
+//        Log.v(TAG, when (v?.id) {
+//            R.id.stone_button -> "Han pulsado el botón piedra"
+//            R.id.donkey_button -> "Han pulsado el botón burro"
+//            else -> "No sé que han pulsado"
+//        })
 
-        Log.v(TAG, when (v?.id) {
-            R.id.stone_button -> "Han pulsado el botón piedra"
-            R.id.donkey_button -> "Han pulsado el botón burro"
-            else -> "No sé que han pulsado"
-        })
+        when (v?.id){
+            R.id.stone_button -> {
+                Log.v(TAG, "Han pulsado el botón piedra")
+                offlineWeatherImage?.setImageResource(R.drawable.offline_weather)
+            }
+            R.id.donkey_button -> {
+                Log.v(TAG, "Han pulsado el botón burro")
+                offlineWeatherImage?.setImageResource(R.drawable.offline_weather2)
+            }
+        }
+
+
 
     }
 
