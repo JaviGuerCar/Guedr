@@ -4,14 +4,22 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
+import android.widget.Button
+import android.view.View
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), View.OnClickListener {
+
 
     val TAG = MainActivity::class.java.canonicalName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // Asigno una referencia al Botón
+        findViewById<Button>(R.id.stone_button).setOnClickListener(this)
+        findViewById<Button>(R.id.donkey_button).setOnClickListener(this)
+
         Log.v(TAG, "He pasado por onCreate")
 
         if (savedInstanceState != null) {
@@ -20,6 +28,35 @@ class MainActivity : AppCompatActivity() {
         else{
             Log.v(TAG, "SavedInstanceState es null")
         }
+    }
+
+    override fun onClick(v: View?) {
+        Log.v(TAG, "Hemos pasado por onClick")
+//        if (v == stoneButton){
+//            Log.v(TAG, "Han pulsado el botón piedra")
+//        } else {
+//            Log.v(TAG, "Han pulsado el botón burro")
+//        }
+
+//        if (v != null){
+//            if (v.id == R.id.stone_button){
+//                Log.v(TAG, "Han pulsado el botón piedra")
+//            } else {
+//                Log.v(TAG, "Han pulsado el botón burro")
+//            }
+//        }
+
+//        when (v?.id){
+//            R.id.stone_button -> Log.v(TAG, "Han pulsado el botón piedra")
+//            R.id.donkey_button -> Log.v(TAG, "Han pulsado el botón burro")
+//        }
+
+        Log.v(TAG, when (v?.id) {
+            R.id.stone_button -> "Han pulsado el botón piedra"
+            R.id.donkey_button -> "Han pulsado el botón burro"
+            else -> "No sé que han pulsado"
+        })
+
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {

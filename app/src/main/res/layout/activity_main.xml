@@ -1,23 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.javi_macbook.guedr.MainActivity">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|center"
-        android:text="@string/greeting"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        app:srcCompat="@drawable/ico_01" />
+        android:contentDescription="@string/offline_description"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/offline_weather" />
 
-</FrameLayout>
+    <Button
+        android:id="@+id/stone_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/stone_button" />
+
+    <Button
+        android:id="@+id/donkey_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/donkey_button" />
+
+</LinearLayout>
