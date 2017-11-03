@@ -10,10 +10,11 @@
     <ImageView
         android:id="@+id/offline_weather_image"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_gravity="center"
         android:contentDescription="@string/offline_description"
         android:scaleType="fitXY"
+        android:layout_weight="1"
         app:srcCompat="@drawable/offline_weather" />
 
     <Button
