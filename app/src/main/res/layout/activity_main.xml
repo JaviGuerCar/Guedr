@@ -1,32 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:layout_margin="@dimen/default_margin"
     tools:context="com.javi_macbook.guedr.MainActivity">
 
+
     <ImageView
-        android:id="@+id/offline_weather_image"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:contentDescription="@string/offline_description"
-        android:scaleType="fitXY"
-        android:layout_weight="1"
-        app:srcCompat="@drawable/offline_weather" />
-
-    <Button
-        android:id="@+id/stone_button"
-        android:layout_width="match_parent"
+        android:id="@+id/forecast_image"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/stone_button" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/forecast_image_description"
+        android:layout_marginRight="@dimen/default_margin"
+        android:layout_marginEnd="@dimen/default_margin"
+        app:srcCompat="@drawable/ico_02" />
 
-    <Button
-        android:id="@+id/donkey_button"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/forecast_description"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/donkey_button" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/forecast_image"
+        android:layout_marginTop="@dimen/default_margin"
+        tools:text="Texto de la descripción" />
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/forecast_image"
+        android:layout_toEndOf="@+id/forecast_image"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@id/forecast_description"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/max_temp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Temperatura máxima: 25ºC"
+            android:layout_marginBottom="@dimen/small_margin"/>
+
+        <TextView
+            android:id="@+id/min_temp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Temperatura mínima: 5ºC"
+            android:layout_marginBottom="@dimen/small_margin"/>
+
+        <TextView
+            android:id="@+id/humidity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Humedad: 50%"
+            android:layout_marginBottom="@dimen/small_margin"/>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

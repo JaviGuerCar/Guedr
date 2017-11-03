@@ -4,4 +4,8 @@
     <string name="offline_description">Imagen que representa el tiempo sin conexión</string>
     <string name="stone_button">Sistema Piedra</string>
     <string name="donkey_button">Sistema Burro</string>
+    <string name="forecast_image_description">Imagen del tiempo que hace</string>
+    <string name="max_temp_format">Temp. máxima: %.2f ºC</string>
+    <string name="min_temp_format">Temp. mínima: %.2f ºC</string>
+    <string name="humidity_format">Humedad: %.0f %%</string>
 </resources>

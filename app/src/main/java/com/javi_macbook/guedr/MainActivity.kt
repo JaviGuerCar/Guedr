@@ -1,84 +1,43 @@
 package com.javi_macbook.guedr
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.util.Log
-import android.widget.Button
-import android.view.View
+import android.support.v7.app.AppCompatActivity
 import android.widget.ImageView
+import android.widget.TextView
+import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : AppCompatActivity() {
 
     val TAG = MainActivity::class.java.canonicalName
-    var offlineWeatherImage: ImageView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Asigno una referencia al Botón
-        findViewById<Button>(R.id.stone_button).setOnClickListener(this)
-        findViewById<Button>(R.id.donkey_button).setOnClickListener(this)
+        val forecast = Forecast(25f, 10f, 35f, "Soleado con alguna nube", R.drawable.ico_01)
 
-        offlineWeatherImage = findViewById(R.id.offline_weather_image)
-
-        Log.v(TAG, "He pasado por onCreate")
-
-        if (savedInstanceState != null) {
-            Log.v(TAG, "SavedInstanceState no es null y su clave vale: ${savedInstanceState.getString("clave")}")
-        }
-        else{
-            Log.v(TAG, "SavedInstanceState es null")
-        }
+        setForecast(forecast)
     }
 
-    override fun onClick(v: View?) {
-        Log.v(TAG, "Hemos pasado por onClick")
-//        if (v == stoneButton){
-//            Log.v(TAG, "Han pulsado el botón piedra")
-//        } else {
-//            Log.v(TAG, "Han pulsado el botón burro")
-//        }
+    private fun setForecast(forecast: Forecast) {
+        // Accedemos a las vistas de la interfaz
+        val forecastImage = findViewById<ImageView>(R.id.forecast_image)
+        val maxTemp = findViewById<TextView>(R.id.max_temp)
+        val minTemp = findViewById<TextView>(R.id.min_temp)
+        val humidity = findViewById<TextView>(R.id.humidity)
+        val forecastDescription = findViewById<TextView>(R.id.forecast_description)
 
-//        if (v != null){
-//            if (v.id == R.id.stone_button){
-//                Log.v(TAG, "Han pulsado el botón piedra")
-//            } else {
-//                Log.v(TAG, "Han pulsado el botón burro")
-//            }
-//        }
-
-//        Log.v(TAG, when (v?.id) {
-//            R.id.stone_button -> "Han pulsado el botón piedra"
-//            R.id.donkey_button -> "Han pulsado el botón burro"
-//            else -> "No sé que han pulsado"
-//        })
-
-        when (v?.id){
-            R.id.stone_button -> {
-                Log.v(TAG, "Han pulsado el botón piedra")
-                offlineWeatherImage?.setImageResource(R.drawable.offline_weather)
-            }
-            R.id.donkey_button -> {
-                Log.v(TAG, "Han pulsado el botón burro")
-                offlineWeatherImage?.setImageResource(R.drawable.offline_weather2)
-            }
-        }
-
-
+        // Actualizamos la vista con el modelo
+        forecastImage.setImageResource(forecast.icon)
+        forecastDescription.text = forecast.description
+        val maxTempString = getString(R.string.max_temp_format, forecast.maxTemp)
+        val minTempString = getString(R.string.min_temp_format, forecast.minTemp)
+        val humidityString = getString(R.string.humidity_format, forecast.humidity)
+        maxTemp.text = maxTempString
+        minTemp.text = minTempString
+        humidity.text = humidityString
 
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
-        super.onSaveInstanceState(outState)
-        Log.v(TAG, "He pasado por onSaveInstanceState")
 
-  /*      if (outState != null) {
-            // Aqui estamos seguros de poder llamar a métodos sin NPE
-            outState.putString("clave", "valor")
-        }*/
-
-        outState?.putString("clave", "valor")
-    }
 }
