@@ -17,21 +17,22 @@ class ForecastActivity : AppCompatActivity() {
         val REQUEST_UNITS = 1
     }
 
-    var maxTemp: TextView? = null
-    var minTemp: TextView? = null
+    lateinit var maxTemp: TextView
+    lateinit var minTemp: TextView
 
     var forecast: Forecast? = null
         set(value) {
             // Field es una palabra reservada de Kotlin, nos sirve para establecer el valor de Forecast
             field = value
             val forecastImage = findViewById<ImageView>(R.id.forecast_image)
-            maxTemp = findViewById<TextView>(R.id.max_temp)
-            minTemp = findViewById<TextView>(R.id.min_temp)
+            maxTemp = findViewById(R.id.max_temp)
+            minTemp = findViewById(R.id.min_temp)
             val humidity = findViewById<TextView>(R.id.humidity)
             val forecastDescription = findViewById<TextView>(R.id.forecast_description)
 
             // Actualizamos la vista con el modelo
-            if (value != null) {
+            // Si value es distinto de null se ejecuta este código
+            value?.let { //equivale a if (value != null)
                 forecastImage.setImageResource(value.icon)
                 forecastDescription.text = value.description
                 val humidityString = getString(R.string.humidity_format, value.humidity)
@@ -114,8 +115,8 @@ class ForecastActivity : AppCompatActivity() {
 
         val maxTempString = getString(R.string.max_temp_format, forecast?.getMaxTemp(units), unitsString)
         val minTempString = getString(R.string.min_temp_format, forecast?.getMinTemp(units), unitsString)
-        maxTemp?.text = maxTempString
-        minTemp?.text = minTempString
+        maxTemp.text = maxTempString
+        minTemp.text = minTempString
     }
 
     private fun temperatureUnitsString(units: Forecast.TempUnit) = when (units){
