@@ -60,7 +60,12 @@ class ForecastActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == R.id.menu_show_settings){
             //Aqui sabemos que se ha pulsado nuestro boton del menu
-            val intent = SettingsActivity.intent(this)
+            val units = if (temperatureUnits() == Forecast.TempUnit.CELSIUS)
+                R.id.celsius_rb
+            else
+                R.id.farenheit_rb
+
+            val intent = SettingsActivity.intent(this, units)
             //Esto lo hariamos si la 2º pantalla no nos tiene que devolver nada
             //startActivity(intent)
 
@@ -107,8 +112,8 @@ class ForecastActivity : AppCompatActivity() {
         val units = temperatureUnits()
         val unitsString = temperatureUnitsString(units)
 
-        val maxTempString = getString(R.string.max_temp_format, forecast?.maxTemp, unitsString)
-        val minTempString = getString(R.string.min_temp_format, forecast?.minTemp, unitsString)
+        val maxTempString = getString(R.string.max_temp_format, forecast?.getMaxTemp(units), unitsString)
+        val minTempString = getString(R.string.min_temp_format, forecast?.getMinTemp(units), unitsString)
         maxTemp?.text = maxTempString
         minTemp?.text = minTempString
     }
