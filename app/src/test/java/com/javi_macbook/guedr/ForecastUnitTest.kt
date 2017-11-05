@@ -1,5 +1,6 @@
 package com.javi_macbook.guedr
 
+import com.javi_macbook.guedr.model.Forecast
 import org.junit.Before
 import org.junit.Test
 import org.junit.Assert.*

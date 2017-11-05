@@ -1,4 +1,4 @@
-package com.javi_macbook.guedr
+package com.javi_macbook.guedr.model
 
 
 data class Forecast(val maxTemp: Float, val minTemp: Float, val humidity: Float, val description: String, val icon: Int) {

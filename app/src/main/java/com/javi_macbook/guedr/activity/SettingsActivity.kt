@@ -1,4 +1,4 @@
-package com.javi_macbook.guedr
+package com.javi_macbook.guedr.activity
 
 import android.app.Activity
 import android.content.Context
@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Button
 import android.widget.RadioGroup
+import com.javi_macbook.guedr.R
 
 /**
  * Created by Javi-MacBook on 3/11/17.

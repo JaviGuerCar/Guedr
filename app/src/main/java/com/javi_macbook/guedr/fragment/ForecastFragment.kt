@@ -1,4 +1,4 @@
-package com.javi_macbook.guedr
+package com.javi_macbook.guedr.fragment
 
 import android.app.Activity
 import android.app.Fragment
@@ -10,6 +10,10 @@ import android.util.Log
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
+import com.javi_macbook.guedr.model.Forecast
+import com.javi_macbook.guedr.PREFERENCE_SHOW_CELSIUS
+import com.javi_macbook.guedr.R
+import com.javi_macbook.guedr.activity.SettingsActivity
 
 
 class ForecastFragment : Fragment() {
