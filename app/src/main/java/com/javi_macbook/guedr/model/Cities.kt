@@ -1,8 +1,9 @@
 package com.javi_macbook.guedr.model
 
 import com.javi_macbook.guedr.R
+import java.io.Serializable
 
-class Cities {
+class Cities : Serializable {
 
     private var cities: List<City> = listOf(
             City("Madrid", Forecast(25f, 10f, 35f, "Soleado con alguna nube", R.drawable.ico_02)),
@@ -16,5 +17,7 @@ class Cities {
     //fun getCity (index: Int) = cities[index]
     // Esto se puede hacer también así, sobreescribiendo el operador get[...]
     operator fun get(i: Int) = cities[i]
+
+    fun toArray() = cities.toTypedArray()
 
 }

@@ -1,6 +1,8 @@
 package com.javi_macbook.guedr.activity
 
 import android.app.Fragment
+import android.content.Context
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v13.app.FragmentPagerAdapter
@@ -12,8 +14,19 @@ import android.view.MenuItem
 import com.javi_macbook.guedr.R
 import com.javi_macbook.guedr.fragment.ForecastFragment
 import com.javi_macbook.guedr.model.Cities
+import com.javi_macbook.guedr.model.City
 
 class CityPagerActivity : AppCompatActivity() {
+
+    companion object {
+        val EXTRA_CITY_INDEX = "EXTRA_CITY_INDEX"
+
+        fun intent(context: Context, cityIndex: Int) : Intent{
+            val intent = Intent(context, CityPagerActivity::class.java)
+            intent.putExtra(EXTRA_CITY_INDEX, cityIndex)
+            return intent
+        }
+    }
 
     val pager by lazy {findViewById<ViewPager>(R.id.view_pager)}
     val cities = Cities()
@@ -56,8 +69,12 @@ class CityPagerActivity : AppCompatActivity() {
 
         })
 
-        updateCityInfo(0)
+        val initialCityIndex = intent.getIntExtra(EXTRA_CITY_INDEX, 0)
+        pager.currentItem = initialCityIndex
+        updateCityInfo(initialCityIndex)
     }
+
+
 
     private fun updateCityInfo(position: Int) {
         supportActionBar?.title = cities[position].name
