@@ -3,7 +3,7 @@ package com.javi_macbook.guedr.model
 import com.javi_macbook.guedr.R
 import java.io.Serializable
 
-class Cities : Serializable {
+object Cities : Serializable {
 
     private var cities: List<City> = listOf(
             City("Madrid", Forecast(25f, 10f, 35f, "Soleado con alguna nube", R.drawable.ico_02)),

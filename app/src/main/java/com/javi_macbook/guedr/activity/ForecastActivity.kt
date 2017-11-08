@@ -15,7 +15,7 @@ class ForecastActivity : AppCompatActivity(), CityListFragment.OnCitySelectedLis
 
         //Comprobamos primero que no tenemos ya el fragment añadido a nuestra jerarquia
         if (fragmentManager.findFragmentById(R.id.city_list_fragment) == null){
-            val fragment = CityListFragment.newInstance(Cities())
+            val fragment = CityListFragment.newInstance()
             fragmentManager.beginTransaction()
                     .add(R.id.city_list_fragment, fragment)
                     .commit()

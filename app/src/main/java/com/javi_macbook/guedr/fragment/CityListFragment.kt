@@ -18,29 +18,19 @@ import com.javi_macbook.guedr.model.City
 
 class CityListFragment : Fragment() {
 
-    private var cities: Cities? = null
     lateinit var root: View
     private var onCitySelectedListener: OnCitySelectedListener? = null
 
     companion object {
-        // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-        private val ARG_CITIES = "ARG_CITIES"
 
-
-        fun newInstance(cities: Cities): CityListFragment {
+        fun newInstance(): CityListFragment {
             val fragment = CityListFragment()
-            val args = Bundle()
-            args.putSerializable(ARG_CITIES, cities)
-            fragment.arguments = args
             return fragment
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (arguments != null) {
-            cities = arguments.getSerializable(ARG_CITIES) as? Cities
-        }
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
@@ -50,13 +40,13 @@ class CityListFragment : Fragment() {
             root = inflater.inflate(R.layout.fragment_city_list, container, false)
             val list = root.findViewById<ListView>(R.id.city_list)
             // Creamos el Array adapter de city, pasando la activity, el formato de item de lista y el array de citys
-            val adapter = ArrayAdapter<City>(activity, android.R.layout.simple_list_item_1, cities?.toArray())
+            val adapter = ArrayAdapter<City>(activity, android.R.layout.simple_list_item_1, Cities.toArray())
             list.adapter = adapter
 
             // Así nos enteramos de que se ha pulsado un elemento de la lista
             list.setOnItemClickListener { parent, view, position, id ->
                 // Aviso al listener
-                onCitySelectedListener?.onCitySelected(cities?.get(position), position)
+                onCitySelectedListener?.onCitySelected(Cities.get(position), position)
             }
         }
 
