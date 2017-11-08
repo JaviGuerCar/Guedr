@@ -14,17 +14,37 @@ import com.javi_macbook.guedr.model.Forecast
 import com.javi_macbook.guedr.PREFERENCE_SHOW_CELSIUS
 import com.javi_macbook.guedr.R
 import com.javi_macbook.guedr.activity.SettingsActivity
+import com.javi_macbook.guedr.model.City
 
 
 class ForecastFragment : Fragment() {
 
     companion object {
         val REQUEST_UNITS = 1
+        private val ARG_CITY = "ARG_CITY"
+
+        fun newInstance(city: City): ForecastFragment {
+            // me creo una instancia del fragment
+            val fragment = ForecastFragment()
+            // paso argumentos al fragment
+            val arguments = Bundle()
+            arguments.putSerializable(ARG_CITY, city)
+            fragment.arguments = arguments
+            return fragment
+        }
     }
 
     lateinit var root: View
     lateinit var maxTemp: TextView
     lateinit var minTemp: TextView
+
+    var city: City? = null
+        set(value){
+            if (value != null){
+                root.findViewById<TextView>(R.id.city).setText(value.name)
+                forecast = value.forecast
+            }
+        }
 
 
     var forecast: Forecast? = null
@@ -58,7 +78,10 @@ class ForecastFragment : Fragment() {
 
         if (inflater != null) {
             root = inflater.inflate(R.layout.fragment_forecast, container, false)
-            forecast = Forecast(25f, 10f, 35f, "Soleado con alguna nube", R.drawable.ico_01)
+//            forecast = Forecast(25f, 10f, 35f, "Soleado con alguna nube", R.drawable.ico_01)
+            if (arguments != null) {
+                city = arguments.getSerializable(ARG_CITY) as? City
+            }
         }
 
         return root
@@ -129,6 +152,14 @@ class ForecastFragment : Fragment() {
             else{
                 Log.v("TAG", "Soy ForecastActivity y han pulsado CANCEL")
             }
+        }
+    }
+
+    //Para saber si, estando en un ViewPager, debemos refrescar las unidades de las temperaturas
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if (isVisibleToUser && forecast != null){
+            updateTemperature()
         }
     }
 

@@ -4,21 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/default_margin">
-
-
+    android:padding="@dimen/default_margin">
+    <TextView
+        android:id="@+id/city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        tools:text="Madrid" />
     <ImageView
         android:id="@+id/forecast_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/city"
         android:contentDescription="@string/forecast_image_description"
         android:layout_marginRight="@dimen/default_margin"
-        android:layout_marginEnd="@dimen/default_margin"
-        app:srcCompat="@drawable/ico_02" />
-
+        app:srcCompat="@drawable/ico_02"
+        android:layout_marginEnd="@dimen/default_margin" />
     <TextView
         android:id="@+id/forecast_description"
         android:layout_width="wrap_content"
@@ -30,41 +38,34 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/forecast_image"
         android:layout_marginTop="@dimen/default_margin"
-        tools:text="Texto de la descripción" />
-
+        tools:text="Aquí iría el texto de la descripción" />
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/city"
         android:layout_toRightOf="@+id/forecast_image"
-        android:layout_toEndOf="@+id/forecast_image"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_above="@id/forecast_description"
-        android:orientation="vertical">
-
+        android:layout_above="@+id/forecast_description"
+        android:orientation="vertical"
+        android:layout_toEndOf="@+id/forecast_image">
         <TextView
             android:id="@+id/max_temp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Temperatura máxima: 25ºC"
+            tools:text="Temperatura máxima: 25 ºC"
             android:layout_marginBottom="@dimen/small_margin"/>
-
         <TextView
             android:id="@+id/min_temp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Temperatura mínima: 5ºC"
+            tools:text="Temperatura mínima: 5 ºC"
             android:layout_marginBottom="@dimen/small_margin"/>
-
         <TextView
             android:id="@+id/humidity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="Humedad: 50%"
             android:layout_marginBottom="@dimen/small_margin"/>
-
     </LinearLayout>
-
-
 </RelativeLayout>

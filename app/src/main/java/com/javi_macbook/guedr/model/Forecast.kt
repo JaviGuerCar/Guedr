@@ -1,7 +1,9 @@
 package com.javi_macbook.guedr.model
 
+import java.io.Serializable
 
-data class Forecast(val maxTemp: Float, val minTemp: Float, val humidity: Float, val description: String, val icon: Int) {
+
+data class Forecast(val maxTemp: Float, val minTemp: Float, val humidity: Float, val description: String, val icon: Int) : Serializable {
 
     enum class TempUnit {
         CELSIUS,
