@@ -257,12 +257,13 @@ class ForecastFragment : Fragment() {
                 else -> R.drawable.ico_01
             }
 
+            // Le doy un retardo
+            Thread.sleep(1000)
+
             return Forecast(max, min, humidity, description, iconResource)
         } catch (ex: Exception) {
             ex.printStackTrace()
         }
-
-        Thread.sleep(5)
 
         return null
 
