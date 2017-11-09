@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.ViewSwitcher
 import com.javi_macbook.guedr.CONSTANT_OWM_APIKEY
 import com.javi_macbook.guedr.model.Forecast
 import com.javi_macbook.guedr.PREFERENCE_SHOW_CELSIUS
@@ -25,9 +26,15 @@ import org.json.JSONObject
 import java.net.HttpURLConnection
 import java.net.URL
 import java.util.*
+import kotlin.concurrent.thread
 
 
 class ForecastFragment : Fragment() {
+
+    enum class VIEW_INDEX(val index: Int) {
+        LOADING(0),
+        FORECAST(1)
+    }
 
     companion object {
         val REQUEST_UNITS = 1
@@ -47,6 +54,7 @@ class ForecastFragment : Fragment() {
     lateinit var root: View
     lateinit var maxTemp: TextView
     lateinit var minTemp: TextView
+    lateinit var viewSwitcher: ViewSwitcher
 
     var city: City? = null
         set(value){
@@ -76,6 +84,8 @@ class ForecastFragment : Fragment() {
                 val humidityString = getString(R.string.humidity_format, value.humidity)
                 humidity.text = humidityString
                 updateTemperature()
+                // Le decimos al viewSwitcher que muestre el RelativeLayout
+                viewSwitcher.displayedChild = VIEW_INDEX.FORECAST.index
             }
             else {
                 updateForecast()
@@ -93,6 +103,11 @@ class ForecastFragment : Fragment() {
 
         if (inflater != null) {
             root = inflater.inflate(R.layout.fragment_forecast, container, false)
+
+            viewSwitcher = root.findViewById(R.id.view_switcher)
+            viewSwitcher.setInAnimation(activity, android.R.anim.fade_in)
+            viewSwitcher.setOutAnimation(activity, android.R.anim.fade_out)
+
 //            forecast = Forecast(25f, 10f, 35f, "Soleado con alguna nube", R.drawable.ico_01)
             if (arguments != null) {
                 city = arguments.getSerializable(ARG_CITY) as? City
@@ -180,6 +195,9 @@ class ForecastFragment : Fragment() {
 
     // Función para descarga en 2º plano con librería Anko
     private fun updateForecast() {
+        // Le decimos al viewSwitcher que muestre el Progress Bar
+        viewSwitcher.displayedChild = VIEW_INDEX.LOADING.index
+
         async(UI) {
             val newForecast: Deferred<Forecast?> = bg { // Con bg hacemos la descarga en 2º plano
                 downloadForecast(city)
@@ -224,6 +242,8 @@ class ForecastFragment : Fragment() {
         } catch (ex: Exception) {
             ex.printStackTrace()
         }
+
+        Thread.sleep(5)
 
         return null
 
