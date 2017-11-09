@@ -8,7 +8,8 @@ object Cities : Serializable {
     private var cities: List<City> = listOf(
             City("Madrid"),
             City("Jaén"),
-            City("Quito")
+            City("Quito"),
+            City("Málaga")
     )
 
     val count

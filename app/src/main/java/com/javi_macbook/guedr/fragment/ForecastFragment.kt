@@ -1,6 +1,7 @@
 package com.javi_macbook.guedr.fragment
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.app.Fragment
 import android.content.Intent
 import android.os.AsyncTask
@@ -86,6 +87,8 @@ class ForecastFragment : Fragment() {
                 updateTemperature()
                 // Le decimos al viewSwitcher que muestre el RelativeLayout
                 viewSwitcher.displayedChild = VIEW_INDEX.FORECAST.index
+                // Supercaché de la muerte
+                city?.forecast = value
             }
             else {
                 updateForecast()
@@ -203,7 +206,23 @@ class ForecastFragment : Fragment() {
                 downloadForecast(city)
             }
 
-            forecast = newForecast.await()
+            val downloadedForecast = newForecast.await()
+            if(downloadedForecast != null) {
+                // Si ha ido bien, se lo asigno al atributo forecast
+                forecast = downloadedForecast
+            }
+            else {
+                // Ha habido error, le mostramos un diálogo
+                AlertDialog.Builder(activity)
+                        .setTitle("Error")
+                        .setMessage("No pude descargar la información del tiempo")
+                        .setPositiveButton("Reintentar", { dialog, _ ->
+                            dialog.dismiss()
+                            updateForecast()
+                        })
+                        .setNegativeButton("Salir", { _, _ -> activity.finish()})
+                        .show()
+            }
         }
     }
 
