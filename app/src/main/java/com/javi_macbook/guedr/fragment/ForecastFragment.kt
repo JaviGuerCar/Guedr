@@ -17,9 +17,14 @@ import com.javi_macbook.guedr.PREFERENCE_SHOW_CELSIUS
 import com.javi_macbook.guedr.R
 import com.javi_macbook.guedr.activity.SettingsActivity
 import com.javi_macbook.guedr.model.City
+import kotlinx.coroutines.experimental.Deferred
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.async
+import org.jetbrains.anko.coroutines.experimental.bg
 import org.json.JSONObject
 import java.net.HttpURLConnection
 import java.net.URL
+import java.util.*
 
 
 class ForecastFragment : Fragment() {
@@ -173,49 +178,25 @@ class ForecastFragment : Fragment() {
         }
     }
 
+    // Función para descarga en 2º plano con librería Anko
     private fun updateForecast() {
-        val weatherDownloader = object : AsyncTask<City, Int, Forecast?>() {
-
-            override fun onPreExecute() {
-                super.onPreExecute()
+        async(UI) {
+            val newForecast: Deferred<Forecast?> = bg { // Con bg hacemos la descarga en 2º plano
+                downloadForecast(city)
             }
 
-            override fun doInBackground(vararg params: City): Forecast? {
-                return downloadForecast(params[0])
-            }
-
-            override fun onPostExecute(result: Forecast?) {
-                super.onPostExecute(result)
-                if (result != null) {
-                    // Si no ha habido errores actualizo la interfaz
-                    city?.forecast = result
-                    forecast = result // Aqui actualiza la interfaz
-                }
-            }
-
+            forecast = newForecast.await()
         }
-
-        weatherDownloader.execute(city)
     }
 
-    fun downloadForecast(city: City): Forecast?{
+    fun downloadForecast(city: City?): Forecast?{
         try{
             // Nos descargamos la información del tiempo a machete
-            val url = URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=${city.name}&lang=sp&units=metric&appid=${CONSTANT_OWM_APIKEY}")
-            val con = url.openConnection() as HttpURLConnection
-            con.connect()
-            val data = ByteArray(1024)
-            var downloadedBytes: Int
-            val input = con.inputStream
-            val sb = StringBuilder()
-            downloadedBytes = input.read(data)
-            while (downloadedBytes != -1) {
-                sb.append(String(data, 0, downloadedBytes))
-                downloadedBytes = input.read(data)
-            }
+            val url = URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=${city?.name}&lang=sp&units=metric&appid=${CONSTANT_OWM_APIKEY}")
+            val jsonString = Scanner(url.openStream(), "UTF-8").useDelimiter("\\A").next()
 
             // Analizamos los datos que nos acabamos de descargar
-            val jsonRoot = JSONObject(sb.toString())
+            val jsonRoot = JSONObject(jsonString.toString())
             val list = jsonRoot.getJSONArray("list")
             val today = list.getJSONObject(0)
             val max = today.getJSONObject("temp").getDouble("max").toFloat()
