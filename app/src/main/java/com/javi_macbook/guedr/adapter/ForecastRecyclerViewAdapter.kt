@@ -12,8 +12,14 @@ import kotlinx.android.synthetic.main.content_forecast.view.*
 
 class ForecastRecyclerViewAdapter(val forecast: List<Forecast>?, val units: Forecast.TempUnit) : RecyclerView.Adapter<ForecastRecyclerViewAdapter.ForecastViewHolder>(){
 
+    // Le añadimos el atributo onClickListener
+    var onClickListener: View.OnClickListener? = null
+
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ForecastViewHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.content_forecast, parent, false)
+        // Le pasamos el atributo a la vista, cuando de pulse en esta
+        view.setOnClickListener(onClickListener)
+
         return ForecastViewHolder(view)
     }
 

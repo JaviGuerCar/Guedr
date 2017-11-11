@@ -21,6 +21,7 @@ import com.javi_macbook.guedr.CONSTANT_OWM_APIKEY
 import com.javi_macbook.guedr.model.Forecast
 import com.javi_macbook.guedr.PREFERENCE_SHOW_CELSIUS
 import com.javi_macbook.guedr.R
+import com.javi_macbook.guedr.activity.DetailActivity
 import com.javi_macbook.guedr.activity.SettingsActivity
 import com.javi_macbook.guedr.adapter.ForecastRecyclerViewAdapter
 import com.javi_macbook.guedr.model.City
@@ -79,7 +80,19 @@ class ForecastFragment : Fragment() {
             // Si value es distinto de null se ejecuta este código
             if (value != null) { //equivale a if (value != null)
                 //Asignamos el adapter al RecyclerView ahora que tenemos datos
-                forecastList.adapter = ForecastRecyclerViewAdapter(value, temperatureUnits())
+                val adapter = ForecastRecyclerViewAdapter(value, temperatureUnits())
+                forecastList.adapter = adapter
+
+                // Le digo al RecyclerViewAdapter que me informen cuando se pulse una de sus vistas
+                adapter.onClickListener = View.OnClickListener { v: View? ->
+                    // Aqui me entero que se ha pulsado una de las vistas
+                    val position = forecastList.getChildAdapterPosition(v)
+                    val forecastToShow = value[position]
+                    val day = v?.findViewById<TextView>(R.id.day)?.text.toString()
+
+                    // Lanzamos la actividad detalle
+                    startActivity(DetailActivity.intent(activity, day, city?.name, forecastToShow))
+                }
 
                 // Le decimos al viewSwitcher que muestre el RelativeLayout
                 viewSwitcher.displayedChild = VIEW_INDEX.FORECAST.index
