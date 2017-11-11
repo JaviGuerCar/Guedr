@@ -91,7 +91,7 @@ class ForecastFragment : Fragment() {
                     val day = v?.findViewById<TextView>(R.id.day)?.text.toString()
 
                     // Lanzamos la actividad detalle
-                    startActivity(DetailActivity.intent(activity, day, city?.name, forecastToShow))
+                    startActivity(DetailActivity.intent(activity,  city?.name, day, forecastToShow))
                 }
 
                 // Le decimos al viewSwitcher que muestre el RelativeLayout
