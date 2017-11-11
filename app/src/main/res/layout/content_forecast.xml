@@ -14,7 +14,7 @@
         >
 
         <TextView
-            android:id="@+id/city"
+            android:id="@+id/day"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -23,7 +23,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            tools:text="Madrid" />
+            tools:text="Hoy" />
 
         <ImageView
             android:id="@+id/forecast_image"
@@ -33,7 +33,7 @@
             android:adjustViewBounds="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/city"
+            android:layout_below="@+id/day"
             android:layout_marginEnd="@dimen/default_margin"
             android:layout_marginRight="@dimen/default_margin"
             android:contentDescription="@string/forecast_image_description"
@@ -57,7 +57,7 @@
             android:layout_above="@+id/forecast_description"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/city"
+            android:layout_below="@+id/day"
             android:layout_toEndOf="@+id/forecast_image"
             android:layout_toRightOf="@+id/forecast_image"
             android:orientation="vertical">
