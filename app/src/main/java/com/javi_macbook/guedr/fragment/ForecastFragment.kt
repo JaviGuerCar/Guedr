@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.design.widget.Snackbar
 import android.support.v7.widget.DefaultItemAnimator
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -110,7 +111,7 @@ class ForecastFragment : Fragment() {
             forecastList = root.findViewById(R.id.forecast_list)
 
             // 2) Le decimos cómo debe visualizarse el RecyclerView (su LayoutManager)
-            forecastList.layoutManager = LinearLayoutManager(activity)
+            forecastList.layoutManager = GridLayoutManager(activity, resources.getInteger(R.integer.recycler_columns))
 
             // 3) Le decimos como debe animarse el RecyclerView (su itemAnimator)
             forecastList.itemAnimator = DefaultItemAnimator()

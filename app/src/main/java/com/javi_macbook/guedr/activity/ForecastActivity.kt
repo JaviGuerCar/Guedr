@@ -53,7 +53,15 @@ class ForecastActivity : AppCompatActivity(), CityListFragment.OnCitySelectedLis
     }
 
     override fun onCitySelected(city: City?, position: Int) {
-        startActivity(CityPagerActivity.intent(this, position))
+        val cityPagerFragment = fragmentManager.findFragmentById(R.id.fragment_city_pager) as? CityPagerFragment
+        if (cityPagerFragment == null){
+            startActivity(CityPagerActivity.intent(this, position))
+        }
+        else{
+            // Estamos viendo el view pager, le pedimos que se mueva
+            cityPagerFragment.moveToCity(position)
+
+        }
     }
 
 }

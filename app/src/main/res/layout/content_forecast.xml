@@ -34,6 +34,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/day"
+            android:layout_above="@id/forecast_description"
             android:layout_marginEnd="@dimen/default_margin"
             android:layout_marginRight="@dimen/default_margin"
             android:contentDescription="@string/forecast_image_description"
@@ -47,14 +48,14 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/forecast_image"
+            android:layout_below="@+id/forecast_information"
             android:layout_marginTop="@dimen/default_margin"
             tools:text="Aquí iría el texto de la descripción" />
 
         <LinearLayout
+            android:id="@+id/forecast_information"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/forecast_description"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/day"
