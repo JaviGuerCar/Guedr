@@ -10,7 +10,7 @@ import com.javi_macbook.guedr.R
 import com.javi_macbook.guedr.model.Forecast
 import kotlinx.android.synthetic.main.content_forecast.view.*
 
-class ForecastRecyclerViewAdapter(val forecast: List<Forecast>, val units: Forecast.TempUnit) : RecyclerView.Adapter<ForecastRecyclerViewAdapter.ForecastViewHolder>(){
+class ForecastRecyclerViewAdapter(val forecast: List<Forecast>?, val units: Forecast.TempUnit) : RecyclerView.Adapter<ForecastRecyclerViewAdapter.ForecastViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ForecastViewHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.content_forecast, parent, false)
@@ -18,10 +18,12 @@ class ForecastRecyclerViewAdapter(val forecast: List<Forecast>, val units: Forec
     }
 
     override fun onBindViewHolder(holder: ForecastViewHolder?, position: Int) {
-        holder?.bindForecast(forecast[position], units, position)
+        if (forecast != null){
+            holder?.bindForecast(forecast[position], units, position)
+        }
     }
 
-    override fun getItemCount() = forecast.size
+    override fun getItemCount() = forecast?.size ?: 0
 
 
 
