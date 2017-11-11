@@ -2,6 +2,8 @@ package com.javi_macbook.guedr.activity
 
 import android.os.Build
 import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.javi_macbook.guedr.R
@@ -48,6 +50,11 @@ class ForecastActivity : AppCompatActivity(), CityListFragment.OnCitySelectedLis
             }
         }
 
+        findViewById<FloatingActionButton>(R.id.add_city_button)?.setOnClickListener { v: View ->
+            Snackbar.make(v,
+                    "Aqui hariamos algo...",
+                    Snackbar.LENGTH_LONG).show()
+        }
 
 
     }
